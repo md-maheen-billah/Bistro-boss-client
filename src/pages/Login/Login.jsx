@@ -121,7 +121,10 @@ const Login = () => {
               />
             </div>
             <div className="form-control mt-6">
-              <button disabled={disabled} className="btn btn-primary">
+              <button
+                // disabled={disabled}
+                className="btn btn-primary"
+              >
                 Login{" "}
               </button>
             </div>
