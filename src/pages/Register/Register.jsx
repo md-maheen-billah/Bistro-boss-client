@@ -1,18 +1,33 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm();
+  const { register, reset, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     createUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
+        updateUserProfile(data.name, data.photo)
+          .then(() => {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Registered Successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/");
+          })
+          .catch((error) => console.error(error));
+        reset();
       })
       .catch((error) => {
         console.error(error);
@@ -44,6 +59,19 @@ const Register = () => {
                 name="name"
                 {...register("name")}
                 placeholder="Name"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Photo Url</span>
+              </label>
+              <input
+                type="text"
+                name="photo"
+                {...register("photo")}
+                placeholder="Photo Url"
                 className="input input-bordered"
                 required
               />
