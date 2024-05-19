@@ -3,6 +3,7 @@ import {
   FaCalendar,
   FaHome,
   FaList,
+  FaSearch,
   FaShoppingCart,
 } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
@@ -35,6 +36,17 @@ const Dashboard = () => {
           <li>
             <NavLink to="/dashboard/bookings">
               <FaList /> My Bookings
+            </NavLink>
+          </li>
+          <div className="divider text-black divider-neutral"></div>
+          <li>
+            <NavLink to="/">
+              <FaHome /> Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="http://localhost:5173/order/salad">
+              <FaSearch /> Menu
             </NavLink>
           </li>
         </ul>
