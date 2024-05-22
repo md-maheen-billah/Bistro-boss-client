@@ -9,6 +9,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
@@ -117,7 +118,7 @@ const Login = () => {
                 placeholder="Type the text above"
                 name="captcha"
                 className="input input-bordered"
-                required
+                // required
               />
             </div>
             <div className="form-control mt-6">
@@ -129,6 +130,7 @@ const Login = () => {
               </button>
             </div>
           </form>
+          <SocialLogin></SocialLogin>
           <p className="text-center mb-4">
             <small>
               New Here?

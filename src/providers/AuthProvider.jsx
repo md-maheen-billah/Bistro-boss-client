@@ -1,4 +1,5 @@
 import {
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
@@ -9,7 +10,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.config";
-import { GoogleAuthProvider } from "firebase/auth/cordova";
+
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
