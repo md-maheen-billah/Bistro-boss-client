@@ -3,6 +3,7 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import { FaUtensils } from "react-icons/fa";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -31,7 +32,7 @@ const AddItems = () => {
       const menuRes = await axiosSecure.post("/menu", menuItem);
       console.log(menuRes.data);
       if (menuRes.data.insertedId) {
-        // show success
+        toast.success("Added item successfully");
       }
     }
     console.log(res.data);
