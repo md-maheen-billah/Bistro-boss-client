@@ -4,11 +4,13 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutForm = () => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
+  const navigate = useNavigate();
   const { user } = useAuth();
   const stripe = useStripe();
   const elements = useElements();
@@ -86,6 +88,7 @@ const CheckOutForm = () => {
         console.log("payment saved", res.data);
         if (res.data?.result?.insertedId) {
           toast.success("Payment Successful");
+          navigate("/dashboard/paymentHistory");
         }
       }
     }
