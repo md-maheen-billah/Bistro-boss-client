@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const CheckOutForm = () => {
   const [error, setError] = useState("");
@@ -15,12 +16,14 @@ const CheckOutForm = () => {
   const [cart] = useCart();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
   useEffect(() => {
-    axiosSecure
-      .post("/create-payment-intent", { price: totalPrice })
-      .then((res) => {
-        console.log(res.data.clientSecret);
-        setClientSecret(res.data.clientSecret);
-      });
+    if (totalPrice > 0) {
+      axiosSecure
+        .post("/create-payment-intent", { price: totalPrice })
+        .then((res) => {
+          console.log(res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        });
+    }
   }, [axiosSecure, totalPrice]);
 
   const handleSubmit = async (event) => {
@@ -81,6 +84,9 @@ const CheckOutForm = () => {
 
         const res = await axiosSecure.post("/payments", payment);
         console.log("payment saved", res.data);
+        if (res.data?.result?.insertedId) {
+          toast.success("Payment Successful");
+        }
       }
     }
   };
